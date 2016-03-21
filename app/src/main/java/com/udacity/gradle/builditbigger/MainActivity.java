@@ -5,12 +5,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
+import com.udacity.gradle.displayjoke.JokeDisplayActivity;
 import com.udacity.gradle.jokeprovider.JokeProvider;
 
 import java.util.Random;
-
 
 public class MainActivity extends AppCompatActivity {
 
@@ -29,19 +28,16 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
     public void tellJoke(View view) {
         Random randomNum = new Random();
         int randomJoke = randomNum.nextInt(JokeProvider.getInstance().getNumberOfJokes());
-        Toast.makeText(this, JokeProvider.getInstance().getJoke(randomJoke), Toast.LENGTH_SHORT).show();
+        JokeDisplayActivity.openActivity(this, JokeProvider.getInstance().getJoke(randomJoke));
     }
-
 }
