@@ -29,4 +29,10 @@ public class JokeDisplayActivity extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction().add(
                 android.R.id.content, fragment).commit();
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+    }
 }

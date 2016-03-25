@@ -2,16 +2,22 @@
              xmlns:tools="http://schemas.android.com/tools"
              android:layout_width="match_parent"
              android:layout_height="match_parent"
-             android:paddingLeft="@dimen/activity_horizontal_margin"
-             android:paddingRight="@dimen/activity_horizontal_margin"
-             android:paddingTop="@dimen/activity_vertical_margin"
-             android:paddingBottom="@dimen/activity_vertical_margin"
+             android:background="@color/colorPrimary"
              tools:context="com.udacity.gradle.displayjoke.JokeDisplayFragment">
 
     <TextView
         android:id="@+id/joke_text"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginStart="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:layout_marginEnd="@dimen/activity_horizontal_margin"
+        android:gravity="center_vertical"
+        android:textSize="@dimen/text_size_xlarge"
+        android:textColor="@android:color/white"
         style="?android:textViewStyle"
         tools:text="@string/empty_joke"/>
 
