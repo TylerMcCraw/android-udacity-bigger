@@ -10,8 +10,13 @@ android {
         targetSdkVersion 23
         versionCode 3
         versionName "1.2"
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
+        debug {
+            multiDexEnabled true
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
@@ -26,9 +31,16 @@ android {
             applicationId "com.udacity.gradle.builditbigger.paid"
         }
     }
+
     sourceSets {
         paid {
             manifest.srcFile 'src/paid/AndroidManifest.xml'
+        }
+    }
+
+    testOptions {
+        unitTests {
+            returnDefaultValues = true
         }
     }
 }
@@ -39,4 +51,5 @@ dependencies {
     freeCompile 'com.google.android.gms:play-services:8.4.0' // Added for AdMob
     compile project(':displayjoke')
     compile project(path: ':backend', configuration: 'android-endpoints')
+    androidTestCompile 'com.android.support.test:testing-support-lib:0.1'
 }
