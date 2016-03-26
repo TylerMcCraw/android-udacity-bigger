@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 
 public class JokeDisplayActivity extends AppCompatActivity {
 
@@ -28,6 +29,23 @@ public class JokeDisplayActivity extends AppCompatActivity {
         JokeDisplayFragment fragment = JokeDisplayFragment.newInstance(joke);
         getSupportFragmentManager().beginTransaction().add(
                 android.R.id.content, fragment).commit();
+
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayShowTitleEnabled(false);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setElevation(0);
+        }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

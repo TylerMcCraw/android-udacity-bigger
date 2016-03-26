@@ -14,7 +14,7 @@ import com.udacity.gradle.displayjoke.JokeDisplayActivity;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final int REVEAL_EFFECT_DURATION = 1000;
+    private float defaultActionBarElevation = 21;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,11 +26,22 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        //TODO: there should be a better way of setting visibility back
+        //TODO: there should be a better lifecycle event or method for setting back visibility
         toggleViewsVisibility(true);
     }
 
     private void toggleViewsVisibility(boolean backToInitial) {
+        if (getSupportActionBar() != null) {
+            if (backToInitial) {
+                getSupportActionBar().setElevation(defaultActionBarElevation);
+                getSupportActionBar().setTitle(getString(R.string.app_name));
+            } else {
+                defaultActionBarElevation = getSupportActionBar().getElevation();
+                getSupportActionBar().setElevation(0);
+                getSupportActionBar().setTitle("");
+            }
+        }
+
         View tellJokeButton = findViewById(R.id.tell_joke_button);
         if (tellJokeButton != null) {
             tellJokeButton.setVisibility(backToInitial ? View.VISIBLE : View.INVISIBLE);
@@ -38,6 +49,15 @@ public class MainActivity extends AppCompatActivity {
         View instructions = findViewById(R.id.instructions_text_view);
         if (instructions != null) {
             instructions.setVisibility(backToInitial ? View.VISIBLE : View.INVISIBLE);
+        }
+        View adView = findViewById(R.id.adView);
+        if (adView != null) {
+            adView.setVisibility(backToInitial ? View.VISIBLE : View.INVISIBLE);
+        }
+
+        View progressBar = findViewById(R.id.progress_bar);
+        if (progressBar != null) {
+            progressBar.setVisibility((backToInitial ? View.GONE : View.VISIBLE));
         }
         View rippleView = findViewById(R.id.splash_joke_view);
         if (rippleView != null) {
@@ -56,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
                 int finalRadius = Math.max(fragmentContainer.getWidth(), fragmentContainer.getHeight());
                 Animator anim = ViewAnimationUtils.createCircularReveal(rippleView, cx, cy, 0, finalRadius);
                 anim.setInterpolator(new AccelerateDecelerateInterpolator());
-                anim.setDuration(REVEAL_EFFECT_DURATION);
+                anim.setDuration(getResources().getInteger(android.R.integer.config_mediumAnimTime));
                 // make the view invisible when the animation is done
                 anim.addListener(new AnimatorListenerAdapter() {
                     @Override
@@ -90,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
             protected void onPostExecute(String result) {
                 super.onPostExecute(result);
                 JokeDisplayActivity.openActivity(MainActivity.this, result);
-                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                overridePendingTransition(0, 0);
             }
         };
         endpointsAsyncTask.execute("");
