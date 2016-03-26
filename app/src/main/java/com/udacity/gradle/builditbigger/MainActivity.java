@@ -50,10 +50,6 @@ public class MainActivity extends AppCompatActivity {
         if (instructions != null) {
             instructions.setVisibility(backToInitial ? View.VISIBLE : View.INVISIBLE);
         }
-        View adView = findViewById(R.id.adView);
-        if (adView != null) {
-            adView.setVisibility(backToInitial ? View.VISIBLE : View.INVISIBLE);
-        }
 
         View progressBar = findViewById(R.id.progress_bar);
         if (progressBar != null) {
